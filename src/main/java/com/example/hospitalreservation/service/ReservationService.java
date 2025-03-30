@@ -30,6 +30,14 @@ public class ReservationService {
 
     // TODO : 새로운 예약을 생성하는 코드를 작성해주세요.
     public Reservation createReservation(Long doctorId, Long patientId, LocalDateTime reservationTime) {
+        // 예약 가능 시간 검증
+        int hour = reservationTime.getHour();
+        int minute = reservationTime.getMinute();
+
+        if (hour < 9 || hour > 17 || minute != 0) {
+            throw new IllegalArgumentException("예약은 오전 9시부터 오후 5시까지, 매 정각에만 가능합니다.");
+        }
+
         Reservation reservation = new Reservation(idCounter++, doctorId, patientId, reservationTime);
         return reservationRepository.save(reservation);
     }
