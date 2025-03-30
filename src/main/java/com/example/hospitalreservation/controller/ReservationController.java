@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import com.example.hospitalreservation.service.ReservationService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.example.hospitalreservation.dto.ReservationDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,11 +25,11 @@ public class ReservationController {
     // TODO : 필요한 어노테이션을 작성해주세요.
     @GetMapping
     public String getReservations(Model model) {
-        // TODO : 예약 메인 페이지를 가져오는 코드를 작성해주세요.
-        List<Reservation> reservtions = reservationService.getAllReservations();
-        model.addAttribute("reservations", reservtions);
+        List<ReservationDTO> reservations = reservationService.getAllReservations();
+        model.addAttribute("reservations", reservations);
         return "index";
     }
+
 
     // TODO : 필요한 어노테이션을 작성해주세요.
     @GetMapping("/new")
