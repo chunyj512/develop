@@ -2,7 +2,6 @@ package com.example.hospitalreservation.repository;
 
 import com.example.hospitalreservation.model.Reservation;
 import org.springframework.stereotype.Repository;
-import com.example.hospitalreservation.dto.ReservationDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,6 @@ public class ReservationRepository {
 
     // TODO : 예약 엔티티를 삭제하는 코드를 작성해주세요.
     public void deleteById(Long id) {
-        reservations.removeIf(reservation -> reservation.toDto().id().equals(id));
+        reservations.removeIf(reservation -> reservation.getId().equals(id));
     }
 }
-
