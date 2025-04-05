@@ -28,7 +28,8 @@ public class ReservationApiController {
         var saved = reservationService.createReservation(
                 request.doctorId(),
                 request.patientId(),
-                request.reservationTime(),
+                request.reservationStartTime(),
+                request.reservationEndTime(),
                 request.reason()
         );
 

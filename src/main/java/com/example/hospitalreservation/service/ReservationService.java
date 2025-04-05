@@ -30,16 +30,23 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public Reservation createReservation(Long doctorId, Long patientId, LocalDateTime reservationTime, String reason) {
-        int hour = reservationTime.getHour();
-        int minute = reservationTime.getMinute();
+    public Reservation createReservation(Long doctorId, Long patientId, LocalDateTime reservationStartTime, LocalDateTime reservationEndTime, String reason) {
+        int hour = reservationStartTime.getHour();
+        int minute = reservationStartTime.getMinute();
 
+        // 예약 시작 시간 조건 체크 (09:00 ~ 17:00, 매 정각)
         if (hour < 9 || hour > 17 || minute != 0) {
             throw new IllegalArgumentException("예약은 오전 9시부터 오후 5시까지, 매 정각에만 가능합니다.");
         }
 
+        // 종료 시간은 시작 시간으로부터 정확히 1시간 후여야 함
+        if (!reservationEndTime.equals(reservationStartTime.plusHours(1))) {
+            throw new IllegalArgumentException("예약 종료 시간은 시작 시간으로부터 정확히 1시간 후여야 합니다.");
+        }
+
+        // 동일한 시작 시간에 이미 예약이 존재하는지 확인
         boolean isDuplicate = reservationRepository.findAll().stream()
-                .anyMatch(r -> r.toDto().reservationTime().equals(reservationTime));
+                .anyMatch(r -> r.toDto().reservationStartTime().equals(reservationStartTime));
         if (isDuplicate) {
             throw new IllegalArgumentException("해당 시간에는 이미 예약이 존재합니다.");
         }
@@ -50,7 +57,7 @@ public class ReservationService {
         }
 
         int fee = policy.calculateFee();
-        Reservation reservation = new Reservation(idCounter++, doctorId, patientId, reservationTime, reason, fee);
+        Reservation reservation = new Reservation(idCounter++, doctorId, patientId, reservationStartTime, reservationEndTime, reason, fee);
         return reservationRepository.save(reservation);
     }
 

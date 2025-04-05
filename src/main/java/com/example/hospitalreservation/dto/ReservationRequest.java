@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record ReservationRequest(
         Long doctorId,
         Long patientId,
-        @JsonProperty("reservationStartTime") LocalDateTime reservationTime,
+        @JsonProperty("reservationStartTime") LocalDateTime reservationStartTime,
+        @JsonProperty("reservationEndTime") LocalDateTime reservationEndTime,
         String reason
 ) {}

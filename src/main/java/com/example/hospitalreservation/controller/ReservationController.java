@@ -24,13 +24,16 @@ public class ReservationController {
     public String createReservation(
             @RequestParam Long doctorId,
             @RequestParam Long patientId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reservationTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reservationStartTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reservationEndTime,
             @RequestParam String reason
     ) {
-        System.out.println("넘어온 시간: " + reservationTime);
-        reservationService.createReservation(doctorId, patientId, reservationTime, reason);
+        System.out.println("넘어온 시작 시간: " + reservationStartTime);
+        System.out.println("넘어온 종료 시간: " + reservationEndTime);
+        reservationService.createReservation(doctorId, patientId, reservationStartTime, reservationEndTime, reason);
         return "redirect:/reservations";
     }
+
 
 
     @GetMapping
