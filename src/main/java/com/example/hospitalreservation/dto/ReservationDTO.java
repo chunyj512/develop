@@ -6,6 +6,9 @@ public record ReservationDTO(
         Long id,
         Long doctorId,
         Long patientId,
-        LocalDateTime reservationTime
+        LocalDateTime reservationStartTime,
+        LocalDateTime reservationEndTime,
+        String reason,
+        int fee
 ) {
 }
