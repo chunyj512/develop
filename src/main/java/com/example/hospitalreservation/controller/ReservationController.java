@@ -24,12 +24,14 @@ public class ReservationController {
     public String createReservation(
             @RequestParam Long doctorId,
             @RequestParam Long patientId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reservationTime
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reservationTime,
+            @RequestParam String reason
     ) {
         System.out.println("넘어온 시간: " + reservationTime);
-        reservationService.createReservation(doctorId, patientId, reservationTime);
+        reservationService.createReservation(doctorId, patientId, reservationTime, reason);
         return "redirect:/reservations";
     }
+
 
     @GetMapping
     public String getReservations(Model model) {
