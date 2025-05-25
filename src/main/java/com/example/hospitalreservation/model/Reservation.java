@@ -2,8 +2,12 @@ package com.example.hospitalreservation.model;
 
 import java.time.LocalDateTime;
 import com.example.hospitalreservation.dto.ReservationDTO;
+import jakarta.persistence.*;
 
+@Entity
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long doctorId;
     private Long patientId;
