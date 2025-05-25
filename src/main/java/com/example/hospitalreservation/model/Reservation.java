@@ -24,6 +24,8 @@ public class Reservation {
 
     protected Reservation() {}
 
+
+
     public Reservation(Doctor doctor, Patient patient, LocalDateTime reservationStartTime,
                        LocalDateTime reservationEndTime, String reason, int fee) {
         this.doctor = doctor;
